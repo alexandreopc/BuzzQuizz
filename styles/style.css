@@ -5,6 +5,11 @@ a{
     text-decoration: none;
 }
 
+body {
+    background-color: #E5E5E5;
+}
+/* ------------------------- */
+
 .top-bar {
     background-color: #ec362d;
     display: flex;
@@ -20,6 +25,81 @@ a{
     height: 69px;
     width: 100%;
     z-index: 2;
-    }
+}
+/* ------------------------- */
 
+main {
+    padding-top: 106px ;
+}
+/* ------------------------- */
+
+/* TELA 3 */
+.criacao-quiz {
+    display: flex;
+    flex-direction: column;
+    text-align:center;
+}
+
+span {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 256px;
+    padding: 0 18px;
+    margin-top: 29px;
+    background-color: #FFF;
     
+}
+.criacao-quiz__perguntas form {
+    justify-content: space-evenly;
+    height: 825px;
+}
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    display: flex;
+    margin: 0 0 12px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+input {
+    height: 46px;
+    margin: 4px 0;
+    padding: 0 14px;
+    border: 1px solid #D1D1D1;
+    border-radius: 5px;
+    font-style: italic;
+    font-size: 19px;
+}
+.criacao-quiz__perguntas input {
+    margin: 0 0 14px;
+}
+
+button {
+    width: 323px;
+    height: 54px;
+    margin-top: 29px;
+    font-size: 18px;
+    color :#FFF5F4;
+    background-color: #EC362D;
+    border-radius: 15px;
+    border: none;
+}
+/* ------------------------- */
+
+/* UTILITARIOS */
+.escondida {
+    display: none;
+}
+/* ------------------------- */
+
+

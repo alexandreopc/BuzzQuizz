@@ -19,8 +19,60 @@
 
     <body>
         <div class="top-bar">BuzzQuizz</div>
-        <!--Nessa div vai o botao que chama a funcao que pega os quizzes na API-->
-        <div class="app">
+        <main>
+            <div class="lista-quiz"><!--tela 1-->
+                <!--Nessa div vai o botao que chama a funcao que pega os quizzes na API-->
+                <div class="app">
+                </div>
+            </div>
+            
+            <div class="pagina-quiz"><!--tela 2-->
+            </div>
+            
+            <div class="criacao-quiz"><!--tela 3-->
+                <div class="criacao-quiz__infos ">
+                    <span>Comece pelo começo</span>
+                    <form>
+                        <input type="text" placeholder="Título do seu quizz">
+                        <input type="text" placeholder="URL da imagem do seu quizz">
+                        <input type="text" placeholder="Quantidade de perguntas do quizz">
+                        <input type="text" placeholder="Quantidade de níveis do quizz">
+                    </form>
+                    <button>Prosseguir pra criar perguntas</button>
+                </div>
+                <div class="criacao-quiz__perguntas escondida">
+                    <span>Crie suas perguntas</span>
+                    <div class="criacao-quiz__pergunta1">
+                        <form>
+                            <div>
+                                <label >Pergunta 1</label>
+                                <input type="text" placeholder="Texto da pergunta">
+                                <input type="text" placeholder="Cor de fundo da pergunta">
+                            </div>  
+                            <div>
+                                <label >Resposta correta</label>
+                                <input type="text" placeholder="Resposta correta">
+                                <input type="text" placeholder="URL da imagem">
+                            </div>
+                            <div>
+                                <label >Resposta incorreta</label>
+                                <input type="text" placeholder="Resposta incorreta 1">
+                                <input type="text" placeholder="URL da imagem 1">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="Resposta incorreta 2">
+                                <input type="text" placeholder="URL da imagem 2">
+                            </div>
+                            <div>
+                                <input type="text" placeholder="Resposta incorreta 3">
+                                <input type="text" placeholder="URL da imagem 3">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="criacao-quiz__niveis"></div>
+                <div class="criacao-quiz__sucesso"></div>
+        </main>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
         <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
