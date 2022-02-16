@@ -2,124 +2,154 @@ const URL_API = "https://mock-api.bootcamp.respondeai.com.br/api/v4/buzzquizz";
 const QUIZZES_API = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 const APP = document.querySelector(".app");
 let serverQuizz = undefined;
+let quizzes;
+let database1;
 
-
-pegarQuizzes();
+getQuizzes();
 //============== TELA 01 ==============//
-let ID_USUARIO_QUIZ = [];
-function pegarQuizzes() {
+
+let USER_QUIZZES_IDS = [];
+
+function getQuizzes() {
     const promise = axios.get(`${URL_API}/quizzes`);
-    promise.then(listarQuizzes);
-    }
+    promise.then(listQuizzes);
+}
 
-function listarQuizzes(resposta){
-const seusQuizzes =""; 
-//pegarQuizzesLocal();
-//ID_USUARIO_QUIZ = seusQuizzes.map((quizz) => quizz.id);
-    const filtrarQuizzId = filtrarQuizzes(resposta.data);
-    console.log(filtrarQuizzId)
+function listQuizzes(response) {
+const yourQuizzes = getQuizzesLocalStorage();
 
-    APP.innerHTML = `
-    <div class="seus-quizzes nao-criado">
-        <p class="quiz-nao-criado">Você não criou nenhum quizz ainda :(</p>
-        <button class="botao-criar-quiz" data-identifier="create-quizz" onclick="criarQuizz()">Criar Quizz</button>
+USER_QUIZZES_IDS = yourQuizzes.map((quizz) => quizz.id);
+const filteresQuizzesIds = filterQuizzes(response.data);
+
+console.log(filteresQuizzesIds)
+
+APP.innerHTML = `
+    <div class="your-quizzes not-created">
+        <p class="quizz-not-created">Você não criou nenhum quizz ainda :(</p>
+        <button class="create-quizz-btn" data-identifier="create-quizz" onclick="generateQuizz()">Criar Quizz</button>
     </div>
-    <div class="quizzes-de-outros-users" data-identifier="general-quizzes">
-        <p class="todos-quizzes">Todos os Quizzes</>
-        <div class="quizzes-de-outros-users-list"></div>
+    <div class="general-quizzes" data-identifier="general-quizzes">
+        <p class="all-quizzes-title">Todos os Quizzes</>
+        <div class="general-quizzes-list"></div>
     </div>
     `;
 
-    //teste apagar dps
-    /*
-    if (filtrarQuizzId.user.length !== 0) {
-        const seusQuizzesElemento = document.querySelector(".seus-quizzes");
+    if (filteresQuizzesIds.user.length !== 0) {
+    const yourQuizzesElement = document.querySelector(".your-quizzes");
 
-        seusQuizzesElemento.innerHTML = `
-        <div class="seus-quizzes">
-        <div class="seus-quizzes-header">
-            <p class="">Seus Quizzes</p>
-            <ion-icon name="add-circle" class="add-quizz-btn" onclick="criarQuizz();"></ion-icon>
+    yourQuizzesElement.innerHTML = `
+    <div class="your-quizzes">
+        <div class="your-quizzes-header">
+        <p class="">Seus Quizzes</p>
+        <ion-icon name="add-circle" class="add-quizz-btn" onclick="generateQuizz();"></ion-icon>
         </div>
-        <div class="seus-quizzes-lista"></div>
-        </div>  
-        `;
+        <div class="your-quizzes-list"></div>
+    </div>  
+    `;
 
-        seusQuizzesElemento.classList.replace("nao-criados", "criados");
+    yourQuizzesElement.classList.replace("not-created", "created");
 
-        const listaSeusQuizzes = document.querySelector(".lista-seus-quizzes");
+    const yourQuizzesList = document.querySelector(".your-quizzes-list");
 
-        for (let i = 0; i < filtrarQuizzId.user.length; i++) {
-        let seuQuizz = filtrarQuizzId.user[i];
+    for (let i = 0; i < filteresQuizzesIds.user.length; i++) {
+    let yourQuizz = filteresQuizzesIds.user[i];
 
-        if(tituloQuizz === undefined) {
-            listaSeusQuizzes.innerHTML += "";
-        } else {
+    if(yourQuizz.title === undefined) {
+        yourQuizzesList.innerHTML += "";
+    } else {
 
-            listaSeusQuizzes.innerHTML += `
-            <div class="seus-quizzes" onclick="carregaQuiz(this)">
-                <img src='${yourQuizz.image}'/>
-                <div class="gradient"></div>
-                <p class="titulo-quizz">${tituloQuizz} </p>
-                <span class="hidden">${yourQuizz.id}</span>
-            </div>      
-            `;
-                }
-            }
-        }
-        */
-
-
-
-        const promise = axios.get(
-            "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes"
-        );
-            promise.then(carregaQuiz);
+    yourQuizzesList.innerHTML += `
+        <div class="your-quizz" onclick="loadQuiz(this)">
+            <img src='${yourQuizz.image}'/>
+            <div class="gradient"></div>
+            <p class="quizz-title">${yourQuizz.title} </p>
+            <span class="hidden">${yourQuizz.id}</span>
+        </div>      
+    `;
+    }
+    }
 }
-    
-    function filtrarQuizzes(quizzes) {
-        let usuario = [];
-        let deFora = [];
-    
-        usuario = quizzes.filter(function (quiz) {
-        if (ID_USUARIO_QUIZ.includes(quiz.id)) {
-        return true;
-        }
-        });
-        deFora = quizzes.filter(function (quiz) {
-            if (!ID_USUARIO_QUIZ.includes(quiz.id)) {
-            return true;
-        }
-        });
-    
-    return {
-        usuario,
-        deFora,
-    };
-    }
-    
-    function carregaQuiz(resposta) {
-        quizzes = resposta.data;
-        const todosOsQuizzes = document.querySelector(".quizzes-de-outros-users-list");
 
-        for (let i = 0; i < quizzes.length; i++) {
-        serverQuizz = quizzes[i];
-    
-        if ("questions" in serverQuizz) {
-        allQuizzes.innerHTML += `
-            <div class="server-quizz" onclick="loadQuiz(this)">
-                <img src='${serverQuizz.image}'/>
-                <div class="gradient">
-                </div>
-                <p class="quizz-title">${serverQuizz.title}</p>
-                <span class="hidden">${serverQuizz.id}</span>
-            </div>
-            `;
-            }
-        }
+    const promise = axios.get(
+    "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes"
+    );
+    promise.then(loadQuizzes);
+}
+
+function filterQuizzes(quizzes) {
+    let user = [];
+    let others = [];
+
+    user = quizzes.filter(function (quizz) {
+    if (USER_QUIZZES_IDS.includes(quizz.id)) {
+        return true;
     }
+    });
+    others = quizzes.filter(function (quizz) {
+    if (!USER_QUIZZES_IDS.includes(quizz.id)) {
+        return true;
+    }
+});
+
+    return {
+    user,
+    others,
+    };
+}
+
+function loadQuizzes(answer) {
+
+quizzes = answer.data;
+
+const allQuizzes = document.querySelector(".general-quizzes-list");
+for (let i = 0; i < quizzes.length; i++) {
+    serverQuizz = quizzes[i];
+
+    if ("questions" in serverQuizz) {
+        allQuizzes.innerHTML += `
+        <div class="server-quizz" onclick="loadQuiz(this)">
+            <img src='${serverQuizz.image}'/>
+            <div class="gradient">
+            </div>
+            <p class="quizz-title">${serverQuizz.title}</p>
+            <span class="hidden">${serverQuizz.id}</span>
+        </div>
+    `;
+    }
+}
+}
 //============== TELA 02 ==============//
 
 
 
 //============== TELA 03 ==============//
+
+
+//Testes
+function saveQuizzLocalStorage(res) {
+    const quizz = res.data;
+    const localData = getQuizzesLocalStorage();
+    localData.push({
+        id: quizz.id,
+        image: quizz.image,
+        title: quizz.title,
+        key: quizz.key,
+    });
+
+    localStorage.setItem("quizzes", JSON.stringify(localData));
+
+    createQuizzSuccess(quizz.id);
+}
+
+
+//mais testes!
+function getQuizzesLocalStorage() {
+    let data = localStorage.getItem("quizzes");
+
+    if (data !== null) {
+        const parsedData = JSON.parse(data);
+        return parsedData;
+    } else {
+        return [];
+    }
+}
