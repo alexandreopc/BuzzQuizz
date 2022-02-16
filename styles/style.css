@@ -22,4 +22,246 @@ a{
     z-index: 2;
     }
 
-    
+.app {
+    height: calc(100vh - 69px);
+    position: fixed;
+    top: 69px;
+    left: 0;
+    width: 100%;
+    overflow-y: auto;
+}
+
+/* CSS TELA 01 */
+
+
+.add-quizz-btn {
+    cursor: pointer;
+}
+
+/*
+.your-quizzes.created {
+    width: 1050px;
+    height: 181px;
+    margin: 77px auto 90px auto;
+    border-radius: 5px;
+}
+*/
+
+.seus-quizzes-header {
+    display: flex;
+    width: 170px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.seus-quizzes-header ion-icon {
+    font-size: 30px;
+    color: #ec362d;
+}
+
+.seus-quizzes-header p {
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 23px;
+    color: #000000;
+}
+
+.seus-quizzes-lista {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.seus-quizzes {
+    width: 340px;
+    height: 181px;
+    position: relative;
+    border-radius: 5px;
+    border-radius: 5px;
+}
+
+.seus-quizzes img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.seus-quizzes p {
+    margin: 0 19px;
+    position: absolute;
+    bottom: 15px;
+    font-family: Roboto;
+    font-size: 19px;
+    line-height: 22px;
+    color: #fff;
+    word-break: keep-all;
+}
+
+.seus-quizzes.nao-criado {
+    width: 1050px;
+    height: 181px;
+    margin: 77px auto 90px auto;
+    border: 1px dashed #d5d5d5;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+p.quiz-nao-criado {
+    width: 250px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    font-family: Roboto;
+    font-size: 20px;
+    line-height: 23px;
+    color: #b9b9b9;
+    word-break: keep-all;
+}
+
+.botao-criar-quiz {
+    width: 151px;
+    height: 40px;
+    background-color: transparent;
+    border: 1px dashed #ec362d;
+    border-radius: 50px;
+    font-family: Roboto;
+    text-align: center;
+    color: #ec362d;
+}
+
+.botao-criar-quiz:hover {
+    cursor: pointer;
+}
+
+.quizzes-de-outros-users {
+    width: 1060px;
+    margin: 0 auto;
+}
+
+.todos-quizzes {
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 23px;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.quizzes-de-outros-users-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.server-quizz {
+    width: 340px;
+    height: 181px;
+    position: relative;
+    border-radius: 5px;
+}
+
+.server-quizz img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.server-quizz p {
+    margin: 0 19px;
+    position: absolute;
+    bottom: 15px;
+    font-family: Roboto;
+    font-size: 19px;
+    line-height: 22px;
+    color: #fff;
+    word-break: keep-all;
+}
+
+.server-quizz:hover {
+    cursor: pointer;
+}
+
+.gradient {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(0, 0, 0, 0.5) 64.58%,
+    #000000 100%
+    );
+    position: absolute;
+    top: 0px;
+    border-radius: 5px;
+}
+
+.oculto{
+    display: none;
+}
+
+@media (max-width: 1100px) {
+    .app {
+    width: 100%;
+    padding-bottom: 20px;
+    }
+    .seus-quizzes.nao-criado {
+    width: 90%;
+    height: 181px;
+    }
+    .seus-quizzes.criado {
+    width: 90%;
+    height: fit-content;
+    border-radius: 5px;
+    }
+
+    .seus-quizzes-header {
+    width: 100%;
+    }
+
+    .seus-quizzes-lista {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    }
+
+    .seus-quizzes {
+    width: 100%;
+    border-radius: 5px;
+    }
+
+    .seus-quizzes img {
+    object-fit: cover;
+    border-radius: 5px;
+    }
+
+    .quizzes-de-outros-users {
+    width: 90%;
+    }
+
+    .quizzes-de-outros-users-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    }
+
+    .server-quizz {
+    width: 100%;
+    }
+
+    .server-quizz img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+    }
+}
