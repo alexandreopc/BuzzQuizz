@@ -234,6 +234,15 @@ let titulo= ""; //mover para dentro de loadQuizQuestions()
 let url= "";
 let qtdPerguntas= 0;
 let qtdNiveis= 0;
+let perguntas = [{
+        title: "",
+		color: "",
+		answers: [{
+				text: "",
+				image: "",
+				isCorrectAnswer: true
+			}]
+}]
 
 
 
@@ -250,7 +259,7 @@ function loadQuizInfo() {
         </form>
         <button onclick="validateQuizInfo()">Prosseguir pra criar perguntas</button>
     </div>    
-    `
+    `;
 }
 function validateQuizInfo() {//FALTA VALIDAR URL
     let tituloInput = document.querySelector("input.titulo").value;
@@ -282,13 +291,13 @@ function validateQuizInfo() {//FALTA VALIDAR URL
         qtdPerguntas = qtdPerguntasInput;
         qtdNiveis = qtdNieveisInput;
         console.log("quiz valido");
-        // loadQuizQuestions(); LIMPAR TELA E CHAMAR FUNC
+        loadQuizQuestions();
     }
 }
 
-function loadQuizQuestions() { //FALTA CRIAR A QUANTIDADE DE PERGUNTAS DINAMICAMENTE E FAZER DISPLAY:NONE NELAS
+function loadQuizQuestions() {
     const conteudo = document.querySelector(".criacao-quiz");
-    conteudo.innerHTML = `
+    let codigoHTML1 = `
     <div class="criacao-quiz__perguntas">
         <span>Crie suas perguntas</span>
         <div class="criacao-quiz__pergunta1">
@@ -317,63 +326,120 @@ function loadQuizQuestions() { //FALTA CRIAR A QUANTIDADE DE PERGUNTAS DINAMICAM
                     <input class="url-resposta-incorreta3" type="text" placeholder="URL da imagem 3">
                 </div>
             </form>
-            <button onclick="validateQuizQuestions()">Prosseguir pra criar níveis</button>
         </div>
-    </div>       
-    `
-}
-function validateQuizQuestions() { //FALTA VALIDAR COR E FALTA VALIDAR URL
-    let perguntaInput = document.querySelector("input.pergunta").value;
-    let corPerguntaInput = document.querySelector("input.cor-pergunta").value;
-    let respostaCorretaInput = document.querySelector("input.resposta-correta").value;
-    let urlRespostaCorretaInput = document.querySelector("input.url-resposta-correta").value;
-    let respostaIncorreta1Input = document.querySelector("input.resposta-incorreta1").value;
-    let urlRespostaIncorreta1Input = document.querySelector("input.url-resposta-incorreta1").value;
-    let respostaIncorreta2Input = document.querySelector("input.resposta-incorreta2").value;
-    let urlRespostaIncorreta2Input = document.querySelector("input.url-resposta-incorreta2").value;
-    let respostaIncorreta3Input = document.querySelector("input.resposta-incorreta3").value;
-    let urlRespostaIncorreta3Input = document.querySelector("input.url-resposta-incorreta3").value;
-    console.log(perguntaInput);
-    console.log(corPerguntaInput);
-    console.log(respostaCorretaInput);
-    console.log(urlRespostaCorretaInput);
-    console.log(respostaIncorreta1Input);
-    console.log(urlRespostaIncorreta1Input);
-    console.log(respostaIncorreta2Input);
-    console.log(urlRespostaIncorreta2Input);
-    console.log(respostaIncorreta3Input);
-    console.log(urlRespostaIncorreta3Input);
+        
+    </div>`;
+
+    conteudo.innerHTML = codigoHTML1;
+    const conteudo2 = document.querySelector(".criacao-quiz__perguntas");
+    qtdPerguntas = 2; //tirar isso dps
     
+    for(let i = 1; i < qtdPerguntas; i++) {
+        console.log("oi");
+        conteudo2.innerHTML += `
+            <div class="criacao-quiz__pergunta${i+1}">
+                <form>
+                    <div>
+                        <label >Pergunta ${i+1}</label>
+                        <input class="pergunta" type="text" placeholder="Texto da pergunta">
+                        <input class="cor-pergunta" type="text" placeholder="Cor de fundo da pergunta">
+                    </div>  
+                    <div>
+                        <label >Resposta correta</label>
+                        <input class="resposta-correta" type="text" placeholder="Resposta correta">
+                        <input class="url-resposta-correta" type="text" placeholder="URL da imagem">
+                    </div>
+                    <div>
+                        <label >Resposta incorreta</label>
+                        <input class="resposta-incorreta1" type="text" placeholder="Resposta incorreta 1">
+                        <input class="url-resposta-incorreta1" type="text" placeholder="URL da imagem 1">
+                    </div>
+                    <div>
+                        <input class="resposta-incorreta2" type="text" placeholder="Resposta incorreta 2">
+                        <input class="url-resposta-incorreta2" type="text" placeholder="URL da imagem 2">
+                    </div>
+                    <div>
+                        <input class="resposta-incorreta3" type="text" placeholder="Resposta incorreta 3">
+                        <input class="url-resposta-incorreta3" type="text" placeholder="URL da imagem 3">
+                    </div> 
+                </form>
+            </div>`;
+    }
+    conteudo2.innerHTML += `
+    <button onclick="validateQuizQuestions()">Prosseguir pra criar níveis</button>`;
+}
+
+function validateQuizQuestions() { //FALTA VALIDAR COR E FALTA VALIDAR URL
+    for(let i = 0; i < qtdPerguntas; i++){
+    let perguntaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value;
+    let corPerguntaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value;
+    let respostaCorretaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value;
+    let urlRespostaCorretaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value;
+    let respostaIncorreta1Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value ;
+    let urlRespostaIncorreta1Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value;
+    let respostaIncorreta2Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value;
+    let urlRespostaIncorreta2Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value;
+    let respostaIncorreta3Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value;
+    let urlRespostaIncorreta3Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value;
+    
+    console.log(perguntaInput);
+
     if(perguntaInput.length < 20) {
         console.log("ERRO 1");
-        document.querySelector("input.pergunta").value = "";
-        document.querySelector("input.cor-pergunta").value = "";
-        document.querySelector("input.resposta-correta").value = "";
-        document.querySelector("input.url-resposta-correta").value = "";
-        document.querySelector("input.resposta-incorreta1").value = "";
-        document.querySelector("input.url-resposta-incorreta1").value = "";
-        document.querySelector("input.resposta-incorreta2").value = "";
-        document.querySelector("input.url-resposta-incorreta2").value = "";
-        document.querySelector("input.resposta-incorreta3").value = "";
-        document.querySelector("input.url-resposta-incorreta3").value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
         alert("Preecha os dados corretamente");
     }else if(respostaCorretaInput === "" || respostaIncorreta1Input === ""){
         console.log("ERRO 2");
-        document.querySelector("input.pergunta").value = "";
-        document.querySelector("input.cor-pergunta").value = "";
-        document.querySelector("input.resposta-correta").value = "";
-        document.querySelector("input.url-resposta-correta").value = "";
-        document.querySelector("input.resposta-incorreta1").value = "";
-        document.querySelector("input.url-resposta-incorreta1").value = "";
-        document.querySelector("input.resposta-incorreta2").value = "";
-        document.querySelector("input.url-resposta-incorreta2").value = "";
-        document.querySelector("input.resposta-incorreta3").value = "";
-        document.querySelector("input.url-resposta-incorreta3").value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value = "";
+        document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
         alert("Preecha os dados corretamente");
-    }else {
-        console.log("quiz valido");
+    }
+    else {
+        console.log("perguntas validas");
+        // document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value;
+        // for(let i = 0; i < qtdPerguntas; i++){
+        //     let input1 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
+        //     let input2 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
+        //     let input3 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
+        //     let input4 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value = "";
+        //     let input5 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value = "";
+        //     let input6 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value = "";
+        //     let input7 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value = "";
+        //     let input8 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value = "";
+        //     let input9 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value = "";
+        //     let input10 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
+
+        //     perguntas[i] = [{
+        //         title: input1,
+        //         color: input2,
+        //         answers: [{
+        //                 text: input3,
+        //                 image: input4,
+        //                 isCorrectAnswer: true
+        //             }]
+        // }]
+        // }
+    }
     }
 }
+
 // loadQuizInfo();
 // loadQuizQuestions();
 
