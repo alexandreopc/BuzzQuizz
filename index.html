@@ -20,7 +20,7 @@
     <body>
         <div class="top-bar">BuzzQuizz</div>
         <main>
-            <div class="lista-quiz"><!--tela 1-->
+            <div class="lista-quiz oculto"><!--tela 1-->
                 <!-- so joguei sua div app para dentro de tela1 -->
                 <!--Nessa div vai o botao que chama a funcao que pega os quizzes na API-->
                 <div class="app">
@@ -33,14 +33,15 @@
             <div class="criacao-quiz"><!--tela 3-->
                 <div class="criacao-quiz__infos oculto">
                     <span>Comece pelo começo</span>
-                    <form>
-                        <input type="text" placeholder="Título do seu quizz">
-                        <input type="text" placeholder="URL da imagem do seu quizz">
-                        <input type="text" placeholder="Quantidade de perguntas do quizz">
-                        <input type="text" placeholder="Quantidade de níveis do quizz">
+                    <form name="comeco-quiz">
+                        <input class="titulo" type="text" placeholder="Título do seu quizz">
+                        <input class="url" type="text" placeholder="URL da imagem do seu quizz">
+                        <input class="qtd-perguntas" type="text" placeholder="Quantidade de perguntas do quizz">
+                        <input class="qtd-nieveis" type="text" placeholder="Quantidade de níveis do quizz">
                     </form>
-                    <button>Prosseguir pra criar perguntas</button>
+                    <button onclick="validarComeco()">Prosseguir pra criar perguntas</button>
                 </div>
+
                 <div class="criacao-quiz__perguntas oculto">
                     <span>Crie suas perguntas</span>
                     <div class="criacao-quiz__pergunta1">
