@@ -3,9 +3,10 @@ const QUIZZES_API = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 const APP = document.querySelector(".app");
 let serverQuizz = undefined;
 let quizzes;
-let database1;
+let database;
 
 getQuizzes();
+
 //============== TELA 01 ==============//
 
 let USER_QUIZZES_IDS = [];
@@ -118,7 +119,112 @@ for (let i = 0; i < quizzes.length; i++) {
     }
 }
 }
+
 //============== TELA 02 ==============//
+
+let quiz_point = 0; 
+let promisse_quiz_selected = axios.get(QUIZZES_API);
+let quiz_data; 
+let quiz_selecionado; 
+let result;
+let counter = 0;
+let levels;
+
+function onSelectedAnswer(element) {
+    counter++;
+    element.classList.add(".selecionado");
+    let myElementParent = element.parentNode.querySelector("#true");
+    element.parentNode.classList.remove("normal-style");
+    element.classList.add("selected");
+    if (element == myElementParent) {
+    quiz_point++;
+    }
+    element.parentNode.classList.add("transparent");
+    let next_element =
+    element.parentNode.parentNode.nextSibling.nextElementSibling;
+    if (next_element != null) {
+        scrollToCard2(next_element, 2000);
+    }
+
+    quizResult();
+}
+function loadQuiz(response) {
+    result = 0;
+    counter = 0;
+    levels = 0;
+    quiz_point = 0;
+    database = response;
+
+    quiz_data = response.querySelector("span").innerHTML;
+    quiz_selecionado = quizzes.filter((p) => p.id == quiz_data)[0]; 
+
+    let questions = quiz_selecionado.questions;
+
+    levels = quiz_selecionado.levels;
+
+    APP.innerHTML = `   
+    <div class="top-quiz-container">
+        <img class ="icon-main-image"src="${quiz_selecionado.image}" alt="">
+        <span  class="quiz-title">${quiz_selecionado.title}</span>
+    </div>
+    <div class="quiz-container">         
+    </div>
+    `;
+    document.querySelector(".quiz-container").scrollIntoView();
+    for (let i = 0; i < questions.length; i++) {
+    let answers = questions[i].answers.sort(randomize);
+
+    APP.querySelector(".quiz-container").innerHTML += `
+    <div class="question-container" data-identifier="question">
+        <div style="background-color: ${questions[i].color}" class="question-title"><span>${questions[i].title}</span></div>
+        <div class="quiz-answers normal-style">
+        </div>
+    </div>    
+    `;
+
+    for (let p = 0; p < answers.length; p++) {
+        APP.querySelector(".quiz-container").lastElementChild.querySelector(
+        ".quiz-answers"
+        ).innerHTML += `        
+        <div class="answer" onclick="onSelectedAnswer(this)" id="${answers[p].isCorrectAnswer}" data-identifier="answer">
+            <img class = "answer-img"src="${answers[p].image}" alt="">
+            <p class="normal-style">${answers[p].text}</p>
+        </div>
+    `;
+    }
+}
+}
+function reload() {
+    loadQuiz(database);
+}
+function quizResult() {
+    let total_points = quiz_selecionado.questions.length;
+    result = Math.ceil((quiz_point / total_points) * 100);
+    let levels = quiz_selecionado.levels;
+    const min_value = levels.map((p) => p.minValue);
+    let my_level = min_value.filter((value) => {
+        return value <= result;
+    });
+    let level_selected = levels[my_level.length - 1];
+
+    if (quiz_selecionado.questions.length == counter) {
+
+    APP.querySelector(".quiz-container").innerHTML += `   
+    <div class="question-container" id="result-box"  data-identifier="quizz-result">
+        <div class="result-title-container">
+        <p>${result} % de acerto: ${level_selected.title} </p>
+        </div>
+        <div class="box-result">
+        <img class ="image-result"src="${level_selected.image}" alt="">
+        <p class="text-result">${level_selected.text}</p>
+        </div>    
+    </div>
+    <button class="reload-button" onclick="reload()"6>Reiniciar Quizz</button>
+    <p class="go-back-button" onclick="getQuizzes()">Voltar pra home</p>
+    `;
+    scrollToCard2(document.querySelector("#result-box"), 2000);
+}
+}
 
 
 
@@ -152,4 +258,9 @@ function getQuizzesLocalStorage() {
     } else {
         return [];
     }
+}
+
+function randomize() {
+    //função para misturar respostas
+    return Math.round(Math.random()) - 0.5;
 }
