@@ -371,77 +371,156 @@ function loadQuizQuestions() {
 
 function validateQuizQuestions() { //FALTA VALIDAR COR E FALTA VALIDAR URL
     for(let i = 0; i < qtdPerguntas; i++){
-    let perguntaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value;
-    let corPerguntaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value;
-    let respostaCorretaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value;
-    let urlRespostaCorretaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value;
-    let respostaIncorreta1Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value ;
-    let urlRespostaIncorreta1Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value;
-    let respostaIncorreta2Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value;
-    let urlRespostaIncorreta2Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value;
-    let respostaIncorreta3Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value;
-    let urlRespostaIncorreta3Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value;
+        let perguntaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value;
+        let corPerguntaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value;
+        let respostaCorretaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value;
+        let urlRespostaCorretaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value;
+        let respostaIncorreta1Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value ;
+        let urlRespostaIncorreta1Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value;
+        let respostaIncorreta2Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value;
+        let urlRespostaIncorreta2Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value;
+        let respostaIncorreta3Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value;
+        let urlRespostaIncorreta3Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value;
+        
+        console.log(perguntaInput);
+
+        if(perguntaInput.length < 20) {
+            console.log("ERRO 1");
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
+            alert("Preecha os dados corretamente");
+        }else if(respostaCorretaInput === "" || respostaIncorreta1Input === ""){
+            console.log("ERRO 2");
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
+            alert("Preecha os dados corretamente");
+        }
+        else {
+            console.log("perguntas validas");
+            // document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value;
+            // for(let i = 0; i < qtdPerguntas; i++){
+            //     let input1 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
+            //     let input2 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
+            //     let input3 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
+            //     let input4 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value = "";
+            //     let input5 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value = "";
+            //     let input6 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value = "";
+            //     let input7 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value = "";
+            //     let input8 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value = "";
+            //     let input9 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value = "";
+            //     let input10 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
+
+            //     perguntas[i] = [{
+            //         title: input1,
+            //         color: input2,
+            //         answers: [{
+            //                 text: input3,
+            //                 image: input4,
+            //                 isCorrectAnswer: true
+            //             }]
+            // }]
+            // }
+        }
+    }
+}
+
+function loadQuizLvls() {
+    const conteudo = document.querySelector(".criacao-quiz");
+    let codigoHTML1 = `
+    <div class="criacao-quiz__niveis">
+        <span>Agora, decida os níveis!</span>
+        <div class="criacao-quiz__nivel1">
+            <form>
+                <div>
+                    <label >Nível 1</label>
+                    <input class="titulo-nivel" type="text" placeholder="Título do nível">
+                    <input class="acerto" type="text" placeholder="% de acerto mínima">
+                    <input class="url-nivel" type="text" placeholder="URL da imagem do nível">
+                    <input class="descricao-nivel" type="text" placeholder="Descrição do nível">
+                </div>  
+            </form>
+        </div>
+    </div>`;
     
-    console.log(perguntaInput);
-
-    if(perguntaInput.length < 20) {
-        console.log("ERRO 1");
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
-        alert("Preecha os dados corretamente");
-    }else if(respostaCorretaInput === "" || respostaIncorreta1Input === ""){
-        console.log("ERRO 2");
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value = "";
-        document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
-        alert("Preecha os dados corretamente");
+    conteudo.innerHTML = codigoHTML1;
+    const conteudo2 = document.querySelector(".criacao-quiz__niveis");
+    qtdNiveis = 2; //tirar isso dps
+    
+    for(let i = 1; i < qtdNiveis; i++) {
+        conteudo2.innerHTML += `
+        <div class="criacao-quiz__nivel${i+1}">
+            <form>
+                <div>
+                    <label >Nível ${i+1}</label>
+                    <input class="titulo-nivel" type="text" placeholder="Título do nível">
+                    <input class="acerto" type="text" placeholder="% de acerto mínima">
+                    <input class="url-nivel" type="text" placeholder="URL da imagem do nível">
+                    <input class="descricao-nivel" type="text" placeholder="Descrição do nível">
+                </div>  
+            </form>
+        </div>`;
     }
-    else {
-        console.log("perguntas validas");
-        // document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value;
-        // for(let i = 0; i < qtdPerguntas; i++){
-        //     let input1 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
-        //     let input2 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
-        //     let input3 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
-        //     let input4 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value = "";
-        //     let input5 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value = "";
-        //     let input6 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value = "";
-        //     let input7 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value = "";
-        //     let input8 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value = "";
-        //     let input9 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value = "";
-        //     let input10 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
+    conteudo2.innerHTML += `
+    <button onclick="validateQuizLvls()">Prosseguir pra criar níveis</button>`;
+}
+function validateQuizLvls() {//FALTA VALIDAR URL E %DE ACERTO
+    //comportamento de so excluir form com entrada errada, os outros estao assim? (se nao mudar para q sim)
+    for(let i = 0; i < qtdNiveis; i++){
+        let tituloNivelInput = document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value;
+        let acertoInput = document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value;
+        let urlNivel = document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value;
+        let descricaoNivelCorretaInput = document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value;
+        
+        console.log(tituloNivelInput);
 
-        //     perguntas[i] = [{
-        //         title: input1,
-        //         color: input2,
-        //         answers: [{
-        //                 text: input3,
-        //                 image: input4,
-        //                 isCorrectAnswer: true
-        //             }]
-        // }]
-        // }
-    }
+        if(tituloNivelInput.length < 10) {
+            console.log("ERRO 1");
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value = "";
+            alert("Preecha os dados corretamente");
+        }else if(acertoInput < 1 || acertoInput > 99) {
+            console.log("ERRO 2");
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value = "";
+            alert("Preecha os dados corretamente");
+        }else if(descricaoNivelCorretaInput.length < 30){
+            console.log("ERRO 3");
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value = "";
+            alert("Preecha os dados corretamente");
+        } 
+        else {
+            console.log("niveis validos");
+           
+        }
     }
 }
 
 // loadQuizInfo();
 // loadQuizQuestions();
+// loadQuizLvls();
 
 //Testes
 function saveQuizzLocalStorage(res) {

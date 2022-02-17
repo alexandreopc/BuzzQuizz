@@ -518,6 +518,11 @@ form {
     justify-content: space-evenly;
     height: 825px;
 }
+.criacao-quiz__niveis form {
+    justify-content: space-evenly;
+    height: 439px;
+}
+
 form div {
     display: flex;
     flex-direction: column;
@@ -541,6 +546,9 @@ input {
 }
 .criacao-quiz__perguntas input {
     margin: 0 0 14px;
+}
+.descricao-nivel{
+    height: 177px;
 }
 
 button {
