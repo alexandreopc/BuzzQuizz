@@ -561,6 +561,11 @@ button {
     border-radius: 15px;
     border: none;
 }
+button.home {
+    color: #818181;
+    background-color: #E5E5E5;
+}
+
 /* ------------------------- */
 
 /* UTILITARIOS */

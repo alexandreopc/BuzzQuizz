@@ -5,7 +5,7 @@ let serverQuizz = undefined;
 let quizzes;
 let database;
 
-getQuizzes(); 
+// getQuizzes(); 
 
 //============== TELA 01 ==============//
 
@@ -244,8 +244,6 @@ let perguntas = [{
 			}]
 }]
 
-
-
 function loadQuizInfo() {
     const conteudo = document.querySelector(".criacao-quiz");
     conteudo.innerHTML = `
@@ -338,7 +336,7 @@ function loadQuizQuestions() {
 
     conteudo.innerHTML = codigoHTML1;
     const conteudo2 = document.querySelector(".criacao-quiz__perguntas");
-    qtdPerguntas = 1; //tirar isso dps
+    // qtdPerguntas = 1; //tirar isso dps
     
     for(let i = 1; i < qtdPerguntas; i++) {
         conteudo2.innerHTML += `
@@ -374,7 +372,7 @@ function loadQuizQuestions() {
     <button onclick="validateQuizQuestions()">Prosseguir pra criar níveis</button>`;
 }
 
-function validateQuizQuestions() { //FALTA VALIDAR COR 
+function validateQuizQuestions() { 
     for(let i = 0; i < qtdPerguntas; i++){
         let perguntaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value;
         let corPerguntaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value;
@@ -386,8 +384,6 @@ function validateQuizQuestions() { //FALTA VALIDAR COR
         let urlRespostaIncorreta2Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value;
         let respostaIncorreta3Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value;
         let urlRespostaIncorreta3Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value;
-        
-        console.log(perguntaInput);
 
         if(perguntaInput.length < 20) {
             console.log("ERRO 1");
@@ -416,6 +412,19 @@ function validateQuizQuestions() { //FALTA VALIDAR COR
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
             alert("Preecha os dados corretamente");
         }else if(validateUrl(urlRespostaCorretaInput) == false || urlRespostaIncorreta1Input == false) {
+            console.log("ERRO 3");
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
+            alert("Preecha os dados corretamente");
+        }else if(validateHex(corPerguntaInput) == false) {
             console.log("ERRO 4");
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
@@ -428,8 +437,7 @@ function validateQuizQuestions() { //FALTA VALIDAR COR
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value = "";
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
             alert("Preecha os dados corretamente");
-        } 
-        else {
+        }else {
             console.log("perguntas validas");
             // document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value;
             // for(let i = 0; i < qtdPerguntas; i++){
@@ -479,7 +487,7 @@ function loadQuizLvls() {
     
     conteudo.innerHTML = codigoHTML1;
     const conteudo2 = document.querySelector(".criacao-quiz__niveis");
-    qtdNiveis = 2; //tirar isso dps
+    // qtdNiveis = 2; //tirar isso dps
     
     for(let i = 1; i < qtdNiveis; i++) {
         conteudo2.innerHTML += `
@@ -498,8 +506,7 @@ function loadQuizLvls() {
     conteudo2.innerHTML += `
     <button onclick="validateQuizLvls()">Prosseguir pra criar níveis</button>`;
 }
-function validateQuizLvls() {//FALTA VALIDAR URL E %DE ACERTO
-    //comportamento de so excluir form com entrada errada, os outros estao assim? (se nao mudar para q sim)
+function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
     for(let i = 0; i < qtdNiveis; i++){
         let tituloNivelInput = document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value;
         let acertoInput = document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value;
@@ -537,17 +544,34 @@ function validateQuizLvls() {//FALTA VALIDAR URL E %DE ACERTO
         } 
         else {
             console.log("niveis validos");
+            //CRIAR FUNCAO QUE SALVA DADOS DO QUIZ
+            loadQuizFinished();
         }
     }
+}
+
+function loadQuizFinished() { //FALTA COLOCAR O LINK DO QUIZ PRONTO
+    const conteudo = document.querySelector(".criacao-quiz");
+    conteudo.innerHTML =  `
+    <div class="criacao-quiz__sucesso">
+        <div><span>Comece pelo começo</span></div>
+            <button onclick="validateQuizInfo()">Acessar Quizz</button>
+            <button class="home" onclick="validateQuizInfo()">Voltar pra home</button>
+        </div>
+    `;
 }
 
 function validateUrl(value) {
     return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value);
   }
+  function validateHex(value) {
+      return /^#([0-9a-f]{3}){1,2}$/i.test(value);
+  }
 
-// loadQuizInfo();
+loadQuizInfo();
 // loadQuizQuestions();
 // loadQuizLvls();
+// loadQuizFinished();
 
 //Testes
 function saveQuizzLocalStorage(res) {
@@ -564,7 +588,6 @@ function saveQuizzLocalStorage(res) {
 
     createQuizzSuccess(quizz.id);
 }
-
 
 //mais testes!
 function getQuizzesLocalStorage() {
