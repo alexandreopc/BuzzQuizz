@@ -334,7 +334,7 @@ function loadQuizQuestions() {
 
     conteudo.innerHTML = codigoHTML1;
     const conteudo2 = document.querySelector(".criacao-quiz__perguntas");
-    qtdPerguntas = 3; //tirar isso dps
+    // qtdPerguntas = 3; //tirar isso dps
     
     for(let i = 1; i < qtdPerguntas; i++) {
         conteudo2.innerHTML += `
@@ -371,10 +371,6 @@ function loadQuizQuestions() {
 }
 
 function validateQuizQuestions() { 
-    console.log(document.querySelector(`.criacao-quiz__pergunta1 input.pergunta`).value);
-    console.log(document.querySelector(`.criacao-quiz__pergunta2 input.pergunta`).value);
-    console.log(document.querySelector(`.criacao-quiz__pergunta3 input.pergunta`).value);
-    
     for(let i = 0; i < qtdPerguntas; i++){
         let perguntaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value;
         let corPerguntaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value;
@@ -442,44 +438,41 @@ function validateQuizQuestions() {
         }else {
             console.log("perguntas validas");
             
-            // for(let j = 0; j < qtdPerguntas; j++) {
-                const pergunta = {
-                    title: perguntaInput,
-                    color: corPerguntaInput,
-                    answers: [
-                        {
-                            text: respostaCorretaInput,
-                            image: urlRespostaCorretaInput,
-                            isCorrectAnswer: true
-                        },
-                        {
-                            text: respostaIncorreta1Input,
-                            image: urlRespostaIncorreta1Input,
-                            isCorrectAnswer: false
-                        }
-                    ]
-                }
-                if(respostaIncorreta2Input !== "" ){
-                    pergunta.answers.push({
-                        text: respostaIncorreta2Input,
-                        urlRespostaIncorreta2Input,
-                            isCorrectAnswer: false
-                    })
-                }
-                if(respostaIncorreta3Input !== "" ){
-                    pergunta.answers.push({
-                        text: respostaIncorreta3Input,
-                        urlRespostaIncorreta3Input,
+            const pergunta = {
+                title: perguntaInput,
+                color: corPerguntaInput,
+                answers: [
+                    {
+                        text: respostaCorretaInput,
+                        image: urlRespostaCorretaInput,
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: respostaIncorreta1Input,
+                        image: urlRespostaIncorreta1Input,
                         isCorrectAnswer: false
-                    })
-                }
-                
-                // perguntas.push(pergunta)
-                console.log(pergunta);
-                body.questions.push(pergunta);
-            // }
-            // body.questions = perguntas;
-            if(i+1 === qtdPerguntas) loadQuizLvls();
+                    }
+                ]
+            }
+            if(respostaIncorreta2Input !== "" ){
+                pergunta.answers.push({
+                    text: respostaIncorreta2Input,
+                    image: urlRespostaIncorreta2Input,
+                    isCorrectAnswer: false
+                })
+            }
+            if(respostaIncorreta3Input !== "" ){
+                pergunta.answers.push({
+                    text: respostaIncorreta3Input,
+                    image: urlRespostaIncorreta3Input,
+                    isCorrectAnswer: false
+                })
+            }
+
+            console.log(pergunta);
+            body.questions.push(pergunta);
+            
+            if(i+1 == qtdPerguntas) loadQuizLvls();
         }
     }
 }
@@ -561,18 +554,19 @@ function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
         } 
         else {
             console.log("niveis validos");
-            
-            for(let j = 0; j < qtdNiveis; j ++) {
-                const nivel = {           
-                    title: tituloNivelInput,
-                    image: urlNivelInput,
-                    text: descricaoNivelCorretaInput,
-                    minValue: acertoInput,
-                }
-                body.levels.push(nivel);
+
+            const nivel = {           
+                title: tituloNivelInput,
+                image: urlNivelInput,
+                text: descricaoNivelCorretaInput,
+                minValue: acertoInput,
             }
 
-            loadQuizFinished();
+            console.log(nivel);
+            body.levels.push(nivel);
+
+            console.log(i);
+            if(i+1 == qtdNiveis) loadQuizFinished();
         }
     }
 }
@@ -595,8 +589,8 @@ function validateUrl(value) {
       return /^#([0-9a-f]{3}){1,2}$/i.test(value);
   }
 
-// loadQuizInfo();
-loadQuizQuestions();
+loadQuizInfo();
+// loadQuizQuestions();
 // loadQuizLvls();
 // loadQuizFinished();
 
