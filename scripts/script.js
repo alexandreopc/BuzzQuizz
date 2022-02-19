@@ -12,6 +12,7 @@ getQuizzes();
 let USER_QUIZZES_IDS = [];
 
 function getQuizzes() {
+    clearHTML();
     const promise = axios.get(`${URL_API}/quizzes`);
     promise.then(listQuizzes);
 }
@@ -143,7 +144,7 @@ function onSelectedAnswer(element) {
     let next_element =
     element.parentNode.parentNode.nextSibling.nextElementSibling;
     if (next_element != null) {
-        scrollToCard2(next_element, 2000);
+        scrollToCard(next_element, 2000);
     }
 
     quizResult();
@@ -222,13 +223,14 @@ function quizResult() {
     <button class="reload-button" onclick="reload()"6>Reiniciar Quizz</button>
     <p class="go-back-button" onclick="getQuizzes()">Voltar pra home</p>
     `;
-    scrollToCard2(document.querySelector("#result-box"), 2000);
+    scrollToCard(document.querySelector("#result-box"), 2000);
 }
 }
 
 
 
 //============== TELA 03 ==============//
+
 let titulo= ""; //mover para dentro de loadQuizQuestions()
 let url= "";
 let qtdPerguntas= 0;
@@ -636,8 +638,9 @@ function saveQuizzLocalStorage(res) {
 
     localStorage.setItem("quizzes", JSON.stringify(localData));
 
-    // createQuizzSuccess(quizz.id);
+    //createQuizzSuccess(quizz.id); //aqui????
 }
+
 
 //mais testes!
 function getQuizzesLocalStorage() {
@@ -652,7 +655,6 @@ function getQuizzesLocalStorage() {
 }
 
 function randomize() {
-    //função para misturar respostas
     return Math.round(Math.random()) - 0.5;
 }
 
@@ -661,3 +663,12 @@ function saveQuizz() {
     const promise = axios.post(`${URL_API}/quizzes`, body);
     promise.then(saveQuizzLocalStorage);
 }  
+
+
+function scrollToCard(element, time) {
+    function scroll() {
+        element.scrollIntoView({ behavior: "smooth" });
+    }
+    setTimeout(scroll, time);
+}
+
