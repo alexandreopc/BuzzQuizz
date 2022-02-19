@@ -27,7 +27,7 @@ console.log(filteresQuizzesIds)
 APP.innerHTML = `
     <div class="your-quizzes not-created">
         <p class="quizz-not-created">Você não criou nenhum quizz ainda :(</p>
-        <button class="create-quizz-btn" data-identifier="create-quizz" onclick="generateQuizz()">Criar Quizz</button>
+        <button class="create-quizz-btn" data-identifier="create-quizz" onclick="loadQuizInfo()">Criar Quizz</button>
     </div>
     <div class="general-quizzes" data-identifier="general-quizzes">
         <p class="all-quizzes-title">Todos os Quizzes</>
@@ -234,15 +234,13 @@ let titulo= ""; //mover para dentro de loadQuizQuestions()
 let url= "";
 let qtdPerguntas= 0;
 let qtdNiveis= 0;
-let perguntas = [{
-        title: "",
-		color: "",
-		answers: [{
-				text: "",
-				image: "",
-				isCorrectAnswer: true
-			}]
-}]
+// let perguntas = [];
+let body = {
+    title: titulo,
+    image: url,
+    questions: [],
+    levels: []
+}
 
 function loadQuizInfo() {
     const conteudo = document.querySelector(".criacao-quiz");
@@ -290,8 +288,8 @@ function validateQuizInfo() {
         document.querySelector("input.qtd-nieveis").value = "";
         alert("Preecha os dados corretamente");
     }else {
-        titulo = tituloInput;
-        url = urlInput;
+        body.title = tituloInput;
+        body.image = urlInput;
         qtdPerguntas = qtdPerguntasInput;
         qtdNiveis = qtdNieveisInput;
         console.log("quiz valido");
@@ -336,7 +334,7 @@ function loadQuizQuestions() {
 
     conteudo.innerHTML = codigoHTML1;
     const conteudo2 = document.querySelector(".criacao-quiz__perguntas");
-    // qtdPerguntas = 1; //tirar isso dps
+    qtdPerguntas = 3; //tirar isso dps
     
     for(let i = 1; i < qtdPerguntas; i++) {
         conteudo2.innerHTML += `
@@ -373,6 +371,10 @@ function loadQuizQuestions() {
 }
 
 function validateQuizQuestions() { 
+    console.log(document.querySelector(`.criacao-quiz__pergunta1 input.pergunta`).value);
+    console.log(document.querySelector(`.criacao-quiz__pergunta2 input.pergunta`).value);
+    console.log(document.querySelector(`.criacao-quiz__pergunta3 input.pergunta`).value);
+    
     for(let i = 0; i < qtdPerguntas; i++){
         let perguntaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value;
         let corPerguntaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value;
@@ -439,30 +441,45 @@ function validateQuizQuestions() {
             alert("Preecha os dados corretamente");
         }else {
             console.log("perguntas validas");
-            // document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value;
-            // for(let i = 0; i < qtdPerguntas; i++){
-            //     let input1 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
-            //     let input2 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
-            //     let input3 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
-            //     let input4 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value = "";
-            //     let input5 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value = "";
-            //     let input6 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value = "";
-            //     let input7 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value = "";
-            //     let input8 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value = "";
-            //     let input9 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value = "";
-            //     let input10 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
-
-            //     perguntas[i] = [{
-            //         title: input1,
-            //         color: input2,
-            //         answers: [{
-            //                 text: input3,
-            //                 image: input4,
-            //                 isCorrectAnswer: true
-            //             }]
-            // }]
+            
+            // for(let j = 0; j < qtdPerguntas; j++) {
+                const pergunta = {
+                    title: perguntaInput,
+                    color: corPerguntaInput,
+                    answers: [
+                        {
+                            text: respostaCorretaInput,
+                            image: urlRespostaCorretaInput,
+                            isCorrectAnswer: true
+                        },
+                        {
+                            text: respostaIncorreta1Input,
+                            image: urlRespostaIncorreta1Input,
+                            isCorrectAnswer: false
+                        }
+                    ]
+                }
+                if(respostaIncorreta2Input !== "" ){
+                    pergunta.answers.push({
+                        text: respostaIncorreta2Input,
+                        urlRespostaIncorreta2Input,
+                            isCorrectAnswer: false
+                    })
+                }
+                if(respostaIncorreta3Input !== "" ){
+                    pergunta.answers.push({
+                        text: respostaIncorreta3Input,
+                        urlRespostaIncorreta3Input,
+                        isCorrectAnswer: false
+                    })
+                }
+                
+                // perguntas.push(pergunta)
+                console.log(pergunta);
+                body.questions.push(pergunta);
             // }
-            loadQuizLvls();
+            // body.questions = perguntas;
+            if(i+1 === qtdPerguntas) loadQuizLvls();
         }
     }
 }
@@ -487,7 +504,7 @@ function loadQuizLvls() {
     
     conteudo.innerHTML = codigoHTML1;
     const conteudo2 = document.querySelector(".criacao-quiz__niveis");
-    // qtdNiveis = 2; //tirar isso dps
+    // qtdNiveis = 1; //tirar isso dps
     
     for(let i = 1; i < qtdNiveis; i++) {
         conteudo2.innerHTML += `
@@ -544,7 +561,17 @@ function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
         } 
         else {
             console.log("niveis validos");
-            //CRIAR FUNCAO QUE SALVA DADOS DO QUIZ
+            
+            for(let j = 0; j < qtdNiveis; j ++) {
+                const nivel = {           
+                    title: tituloNivelInput,
+                    image: urlNivelInput,
+                    text: descricaoNivelCorretaInput,
+                    minValue: acertoInput,
+                }
+                body.levels.push(nivel);
+            }
+
             loadQuizFinished();
         }
     }
@@ -555,8 +582,8 @@ function loadQuizFinished() { //FALTA COLOCAR O LINK DO QUIZ PRONTO
     conteudo.innerHTML =  `
     <div class="criacao-quiz__sucesso">
         <div><span>Comece pelo começo</span></div>
-            <button onclick="validateQuizInfo()">Acessar Quizz</button>
-            <button class="home" onclick="validateQuizInfo()">Voltar pra home</button>
+            <button onclick="">Acessar Quizz</button>
+            <button onclick="" class="home"">Voltar pra home</button>
         </div>
     `;
 }
@@ -568,8 +595,8 @@ function validateUrl(value) {
       return /^#([0-9a-f]{3}){1,2}$/i.test(value);
   }
 
-loadQuizInfo();
-// loadQuizQuestions();
+// loadQuizInfo();
+loadQuizQuestions();
 // loadQuizLvls();
 // loadQuizFinished();
 
