@@ -5,7 +5,7 @@ let serverQuizz = undefined;
 let quizzes;
 let database;
 
-// getQuizzes(); 
+//getQuizzes(); 
 
 //============== TELA 01 ==============//
 
