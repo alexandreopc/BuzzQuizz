@@ -27,7 +27,7 @@ console.log(filteresQuizzesIds)
 APP.innerHTML = `
     <div class="your-quizzes not-created">
         <p class="quizz-not-created">Você não criou nenhum quizz ainda :(</p>
-        <button class="create-quizz-btn" data-identifier="create-quizz" onclick="generateQuizz()">Criar Quizz</button>
+        <button class="create-quizz-btn" data-identifier="create-quizz" onclick="loadQuizInfo()">Criar Quizz</button>
     </div>
     <div class="general-quizzes" data-identifier="general-quizzes">
         <p class="all-quizzes-title">Todos os Quizzes</>
@@ -234,17 +234,12 @@ let titulo= ""; //mover para dentro de loadQuizQuestions()
 let url= "";
 let qtdPerguntas= 0;
 let qtdNiveis= 0;
-let perguntas = [{
-        title: "",
-		color: "",
-		answers: [{
-				text: "",
-				image: "",
-				isCorrectAnswer: true
-			}]
-}]
-
-
+let body = {
+    title: titulo,
+    image: url,
+    questions: [],
+    levels: []
+}
 
 function loadQuizInfo() {
     const conteudo = document.querySelector(".criacao-quiz");
@@ -261,7 +256,7 @@ function loadQuizInfo() {
     </div>    
     `;
 }
-function validateQuizInfo() {//FALTA VALIDAR URL
+function validateQuizInfo() {
     let tituloInput = document.querySelector("input.titulo").value;
     let urlInput = document.querySelector("input.url").value;
     let qtdPerguntasInput = document.querySelector("input.qtd-perguntas").value;
@@ -285,12 +280,17 @@ function validateQuizInfo() {//FALTA VALIDAR URL
         document.querySelector("input.qtd-perguntas").value = "";
         document.querySelector("input.qtd-nieveis").value = "";
         alert("Preecha os dados corretamente");
+    }else if(validateUrl(urlInput) == false) {
+        document.querySelector("input.titulo").value = "";
+        document.querySelector("input.url").value = "";
+        document.querySelector("input.qtd-perguntas").value = "";
+        document.querySelector("input.qtd-nieveis").value = "";
+        alert("Preecha os dados corretamente");
     }else {
-        titulo = tituloInput;
-        url = urlInput;
+        body.title = tituloInput;
+        body.image = urlInput;
         qtdPerguntas = qtdPerguntasInput;
         qtdNiveis = qtdNieveisInput;
-        console.log("quiz valido");
         loadQuizQuestions();
     }
 }
@@ -332,10 +332,9 @@ function loadQuizQuestions() {
 
     conteudo.innerHTML = codigoHTML1;
     const conteudo2 = document.querySelector(".criacao-quiz__perguntas");
-    qtdPerguntas = 2; //tirar isso dps
+    // qtdPerguntas = 3; //tirar isso dps
     
     for(let i = 1; i < qtdPerguntas; i++) {
-        console.log("oi");
         conteudo2.innerHTML += `
             <div class="criacao-quiz__pergunta${i+1}">
                 <form>
@@ -369,7 +368,7 @@ function loadQuizQuestions() {
     <button onclick="validateQuizQuestions()">Prosseguir pra criar níveis</button>`;
 }
 
-function validateQuizQuestions() { //FALTA VALIDAR COR E FALTA VALIDAR URL
+function validateQuizQuestions() { 
     for(let i = 0; i < qtdPerguntas; i++){
         let perguntaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value;
         let corPerguntaInput = document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value;
@@ -381,11 +380,8 @@ function validateQuizQuestions() { //FALTA VALIDAR COR E FALTA VALIDAR URL
         let urlRespostaIncorreta2Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value;
         let respostaIncorreta3Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value;
         let urlRespostaIncorreta3Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value;
-        
-        console.log(perguntaInput);
 
         if(perguntaInput.length < 20) {
-            console.log("ERRO 1");
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
@@ -398,7 +394,6 @@ function validateQuizQuestions() { //FALTA VALIDAR COR E FALTA VALIDAR URL
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
             alert("Preecha os dados corretamente");
         }else if(respostaCorretaInput === "" || respostaIncorreta1Input === ""){
-            console.log("ERRO 2");
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
@@ -410,32 +405,65 @@ function validateQuizQuestions() { //FALTA VALIDAR COR E FALTA VALIDAR URL
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value = "";
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
             alert("Preecha os dados corretamente");
-        }
-        else {
-            console.log("perguntas validas");
-            // document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value;
-            // for(let i = 0; i < qtdPerguntas; i++){
-            //     let input1 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
-            //     let input2 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
-            //     let input3 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
-            //     let input4 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value = "";
-            //     let input5 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value = "";
-            //     let input6 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value = "";
-            //     let input7 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value = "";
-            //     let input8 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value = "";
-            //     let input9 =  document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value = "";
-            //     let input10 = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
+        }else if(validateUrl(urlRespostaCorretaInput) == false || urlRespostaIncorreta1Input == false) {
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
+            alert("Preecha os dados corretamente");
+        }else if(validateHex(corPerguntaInput) == false) {
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-correta`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta1`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta1`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta2`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta2`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-incorreta3`).value = "";
+            document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
+            alert("Preecha os dados corretamente");
+        }else {
+            const pergunta = {
+                title: perguntaInput,
+                color: corPerguntaInput,
+                answers: [
+                    {
+                        text: respostaCorretaInput,
+                        image: urlRespostaCorretaInput,
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: respostaIncorreta1Input,
+                        image: urlRespostaIncorreta1Input,
+                        isCorrectAnswer: false
+                    }
+                ]
+            }
+            if(respostaIncorreta2Input !== "" ){
+                pergunta.answers.push({
+                    text: respostaIncorreta2Input,
+                    image: urlRespostaIncorreta2Input,
+                    isCorrectAnswer: false
+                })
+            }
+            if(respostaIncorreta3Input !== "" ){
+                pergunta.answers.push({
+                    text: respostaIncorreta3Input,
+                    image: urlRespostaIncorreta3Input,
+                    isCorrectAnswer: false
+                })
+            }
 
-            //     perguntas[i] = [{
-            //         title: input1,
-            //         color: input2,
-            //         answers: [{
-            //                 text: input3,
-            //                 image: input4,
-            //                 isCorrectAnswer: true
-            //             }]
-            // }]
-            // }
+            body.questions.push(pergunta);
+            
+            if(i+1 == qtdPerguntas) loadQuizLvls();
         }
     }
 }
@@ -460,7 +488,7 @@ function loadQuizLvls() {
     
     conteudo.innerHTML = codigoHTML1;
     const conteudo2 = document.querySelector(".criacao-quiz__niveis");
-    qtdNiveis = 2; //tirar isso dps
+    // qtdNiveis = 1; //tirar isso dps
     
     for(let i = 1; i < qtdNiveis; i++) {
         conteudo2.innerHTML += `
@@ -479,32 +507,32 @@ function loadQuizLvls() {
     conteudo2.innerHTML += `
     <button onclick="validateQuizLvls()">Prosseguir pra criar níveis</button>`;
 }
-function validateQuizLvls() {//FALTA VALIDAR URL E %DE ACERTO
-    //comportamento de so excluir form com entrada errada, os outros estao assim? (se nao mudar para q sim)
+function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
     for(let i = 0; i < qtdNiveis; i++){
         let tituloNivelInput = document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value;
         let acertoInput = document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value;
-        let urlNivel = document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value;
+        let urlNivelInput = document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value;
         let descricaoNivelCorretaInput = document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value;
-        
-        console.log(tituloNivelInput);
 
         if(tituloNivelInput.length < 10) {
-            console.log("ERRO 1");
             document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value = "";
             alert("Preecha os dados corretamente");
         }else if(acertoInput < 1 || acertoInput > 99) {
-            console.log("ERRO 2");
             document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value = "";
             alert("Preecha os dados corretamente");
         }else if(descricaoNivelCorretaInput.length < 30){
-            console.log("ERRO 3");
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value = "";
+            alert("Preecha os dados corretamente");
+        }else if(validateUrl(urlNivelInput) == false) {
             document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
@@ -512,15 +540,50 @@ function validateQuizLvls() {//FALTA VALIDAR URL E %DE ACERTO
             alert("Preecha os dados corretamente");
         } 
         else {
-            console.log("niveis validos");
-           
+            const nivel = {           
+                title: tituloNivelInput,
+                image: urlNivelInput,
+                text: descricaoNivelCorretaInput,
+                minValue: acertoInput,
+            }
+
+            body.levels.push(nivel);
+
+            if(i+1 == qtdNiveis) {
+                console.log(body);
+                loadQuizFinished();
+            }
         }
     }
 }
 
-// loadQuizInfo();
+function loadQuizFinished() { //FALTA COLOCAR O LINK DO QUIZ PRONTO
+    const conteudo = document.querySelector(".criacao-quiz");
+    conteudo.innerHTML =  `
+    <div class="criacao-quiz__sucesso">
+        <div><span>Comece pelo começo</span></div>
+            <button onclick="">Acessar Quizz</button>
+            <button onclick="returnHomePage()" class="home"">Voltar pra home</button>
+        </div>
+    `;
+}
+
+function returnHomePage() { //COMPLETAR CHAMANDO FUNCAO DE INICIALIZACAO DO SITE
+    const conteudo = document.querySelector(".criacao-quiz");
+    conteudo.innerHTML = ``;
+}
+
+function validateUrl(value) {
+    return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value);
+  }
+  function validateHex(value) {
+      return /^#([0-9a-f]{3}){1,2}$/i.test(value);
+  }
+
+loadQuizInfo();
 // loadQuizQuestions();
 // loadQuizLvls();
+// loadQuizFinished();
 
 //Testes
 function saveQuizzLocalStorage(res) {
@@ -537,7 +600,6 @@ function saveQuizzLocalStorage(res) {
 
     createQuizzSuccess(quizz.id);
 }
-
 
 //mais testes!
 function getQuizzesLocalStorage() {
