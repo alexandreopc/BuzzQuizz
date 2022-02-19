@@ -234,7 +234,6 @@ let titulo= ""; //mover para dentro de loadQuizQuestions()
 let url= "";
 let qtdPerguntas= 0;
 let qtdNiveis= 0;
-// let perguntas = [];
 let body = {
     title: titulo,
     image: url,
@@ -292,7 +291,6 @@ function validateQuizInfo() {
         body.image = urlInput;
         qtdPerguntas = qtdPerguntasInput;
         qtdNiveis = qtdNieveisInput;
-        console.log("quiz valido");
         loadQuizQuestions();
     }
 }
@@ -384,7 +382,6 @@ function validateQuizQuestions() {
         let urlRespostaIncorreta3Input = document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value;
 
         if(perguntaInput.length < 20) {
-            console.log("ERRO 1");
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
@@ -397,7 +394,6 @@ function validateQuizQuestions() {
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
             alert("Preecha os dados corretamente");
         }else if(respostaCorretaInput === "" || respostaIncorreta1Input === ""){
-            console.log("ERRO 2");
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
@@ -410,7 +406,6 @@ function validateQuizQuestions() {
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
             alert("Preecha os dados corretamente");
         }else if(validateUrl(urlRespostaCorretaInput) == false || urlRespostaIncorreta1Input == false) {
-            console.log("ERRO 3");
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
@@ -423,7 +418,6 @@ function validateQuizQuestions() {
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
             alert("Preecha os dados corretamente");
         }else if(validateHex(corPerguntaInput) == false) {
-            console.log("ERRO 4");
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.pergunta`).value = "";
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.cor-pergunta`).value = "";
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.resposta-correta`).value = "";
@@ -436,8 +430,6 @@ function validateQuizQuestions() {
             document.querySelector(`.criacao-quiz__pergunta${i+1} input.url-resposta-incorreta3`).value = "";
             alert("Preecha os dados corretamente");
         }else {
-            console.log("perguntas validas");
-            
             const pergunta = {
                 title: perguntaInput,
                 color: corPerguntaInput,
@@ -469,7 +461,6 @@ function validateQuizQuestions() {
                 })
             }
 
-            console.log(pergunta);
             body.questions.push(pergunta);
             
             if(i+1 == qtdPerguntas) loadQuizLvls();
@@ -524,28 +515,24 @@ function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
         let descricaoNivelCorretaInput = document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value;
 
         if(tituloNivelInput.length < 10) {
-            console.log("ERRO 1");
             document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value = "";
             alert("Preecha os dados corretamente");
         }else if(acertoInput < 1 || acertoInput > 99) {
-            console.log("ERRO 2");
             document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value = "";
             alert("Preecha os dados corretamente");
         }else if(descricaoNivelCorretaInput.length < 30){
-            console.log("ERRO 3");
             document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value = "";
             alert("Preecha os dados corretamente");
         }else if(validateUrl(urlNivelInput) == false) {
-            console.log("ERRO 4");
             document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
@@ -553,8 +540,6 @@ function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
             alert("Preecha os dados corretamente");
         } 
         else {
-            console.log("niveis validos");
-
             const nivel = {           
                 title: tituloNivelInput,
                 image: urlNivelInput,
@@ -562,11 +547,12 @@ function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
                 minValue: acertoInput,
             }
 
-            console.log(nivel);
             body.levels.push(nivel);
 
-            console.log(i);
-            if(i+1 == qtdNiveis) loadQuizFinished();
+            if(i+1 == qtdNiveis) {
+                console.log(body);
+                loadQuizFinished();
+            }
         }
     }
 }
@@ -577,9 +563,14 @@ function loadQuizFinished() { //FALTA COLOCAR O LINK DO QUIZ PRONTO
     <div class="criacao-quiz__sucesso">
         <div><span>Comece pelo começo</span></div>
             <button onclick="">Acessar Quizz</button>
-            <button onclick="" class="home"">Voltar pra home</button>
+            <button onclick="returnHomePage()" class="home"">Voltar pra home</button>
         </div>
     `;
+}
+
+function returnHomePage() { //COMPLETAR CHAMANDO FUNCAO DE INICIALIZACAO DO SITE
+    const conteudo = document.querySelector(".criacao-quiz");
+    conteudo.innerHTML = ``;
 }
 
 function validateUrl(value) {
