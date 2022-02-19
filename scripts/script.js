@@ -574,7 +574,17 @@ function loadQuizFinished() { //FALTA COLOCAR O LINK DO QUIZ PRONTO
 function returnHomePage() { //COMPLETAR CHAMANDO FUNCAO DE INICIALIZACAO DO SITE
     const conteudo = document.querySelector(".criacao-quiz");
     conteudo.innerHTML = ``;
+    clearHTML();
     getQuizzes();
+}
+
+function clearHTML() {
+    const tela1 = document.querySelector(".lista-quiz");
+    const tela2 = document.querySelector(".pagina-quiz");
+    const tela3 = document.querySelector(".criacao-quiz");
+    tela1.innerHTML = "";
+    tela2.innerHTML = "";
+    tela3.innerHTML = "";
 }
 
 function validateUrl(value) {
