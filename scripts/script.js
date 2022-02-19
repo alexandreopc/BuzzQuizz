@@ -5,7 +5,7 @@ let serverQuizz = undefined;
 let quizzes;
 let database;
 
-getQuizzes(); 
+// getQuizzes(); 
 
 //============== TELA 01 ==============//
 
@@ -489,7 +489,7 @@ function loadQuizLvls() {
     
     conteudo.innerHTML = codigoHTML1;
     const conteudo2 = document.querySelector(".criacao-quiz__niveis");
-    // qtdNiveis = 1; //tirar isso dps
+    qtdNiveis = 2; //tirar isso dps
     
     for(let i = 1; i < qtdNiveis; i++) {
         conteudo2.innerHTML += `
@@ -509,11 +509,18 @@ function loadQuizLvls() {
     <button onclick="validateQuizLvls()">Prosseguir pra criar níveis</button>`;
 }
 function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
+    let aux = 0;
+    let erros = 0;
     for(let i = 0; i < qtdNiveis; i++){
         let tituloNivelInput = document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value;
         let acertoInput = document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value;
         let urlNivelInput = document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value;
         let descricaoNivelCorretaInput = document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value;
+        
+        if(acertoInput == 0){
+            aux ++;
+            console.log("aux++")
+        }
 
         if(tituloNivelInput.length < 10) {
             document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
@@ -521,26 +528,44 @@ function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
             document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value = "";
             alert("Preecha os dados corretamente");
+            erros++;
         }else if(acertoInput < 0 || acertoInput > 99) {
             document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value = "";
             alert("Preecha os dados corretamente");
+            erros++;
         }else if(descricaoNivelCorretaInput.length < 30){
             document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value = "";
             alert("Preecha os dados corretamente");
+            erros++;
         }else if(validateUrl(urlNivelInput) == false) {
             document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value = "";
             alert("Preecha os dados corretamente");
-        } 
-        else {
+            erros++;
+        } else if (i == qtdNiveis-1 && aux < 1){
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value = "";
+            alert("Preecha os dados corretamente");
+            erros++;
+        } else if (i == qtdNiveis-1 && aux > 1){
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
+            document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value = "";
+            alert("Preecha os dados corretamente");
+            erros++;
+        }
+        else if(erros == 0){
             const nivel = {           
                 title: tituloNivelInput,
                 image: urlNivelInput,
@@ -596,7 +621,7 @@ function validateHex(value) {
 
 // loadQuizInfo();
 // loadQuizQuestions();
-// loadQuizLvls();
+loadQuizLvls();
 // loadQuizFinished();
 
 //Testes
