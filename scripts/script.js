@@ -5,6 +5,7 @@ let serverQuizz = undefined;
 let quizzes;
 let database;
 
+ocultaTodos();
 getQuizzes(); 
 
 //============== TELA 01 ==============//
@@ -42,7 +43,7 @@ APP.innerHTML = `
     <div class="your-quizzes">
         <div class="your-quizzes-header">
         <p class="">Seus Quizzes</p>
-        <ion-icon name="add-circle" class="add-quizz-btn" onclick="generateQuizz();"></ion-icon>
+        <ion-icon name="add-circle" class="add-quizz-btn" onclick="loadQuizInfo()"></ion-icon>
         </div>
         <div class="your-quizzes-list"></div>
     </div>  
@@ -610,6 +611,17 @@ function clearHTML() {
     tela1.innerHTML = "";
     tela2.innerHTML = "";
     tela3.innerHTML = "";
+}
+function ocultaTodos() {
+    const tela1 = document.querySelector(".lista-quiz");
+    const tela2 = document.querySelector(".pagina-quiz");
+    const tela3 = document.querySelector(".criacao-quiz");
+    tela1.classList.add("oculto");
+    tela2.classList.add("oculto");
+    tela3.classList.add("oculto");
+}
+function removeOculto(tela) {
+    document.querySelector(tela).classList.remove("oculto");
 }
 
 function validateUrl(value) {
