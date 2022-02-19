@@ -1,6 +1,6 @@
 const URL_API = "https://mock-api.bootcamp.respondeai.com.br/api/v4/buzzquizz";
 const QUIZZES_API = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
-const APP = document.querySelector(".app");
+const APP = document.querySelector(".lista-quiz");
 let serverQuizz = undefined;
 let quizzes;
 let database;
@@ -229,7 +229,6 @@ function quizResult() {
 
 
 //============== TELA 03 ==============//
-
 let titulo= ""; //mover para dentro de loadQuizQuestions()
 let url= "";
 let qtdPerguntas= 0;
