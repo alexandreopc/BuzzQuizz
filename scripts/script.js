@@ -582,7 +582,7 @@ function validateHex(value) {
     return /^#([0-9a-f]{3}){1,2}$/i.test(value);
 }
 
-loadQuizInfo();
+// loadQuizInfo();
 // loadQuizQuestions();
 // loadQuizLvls();
 // loadQuizFinished();
