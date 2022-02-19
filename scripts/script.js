@@ -5,7 +5,7 @@ let serverQuizz = undefined;
 let quizzes;
 let database;
 
-// getQuizzes(); 
+getQuizzes(); 
 
 //============== TELA 01 ==============//
 
@@ -621,7 +621,7 @@ function validateHex(value) {
 
 // loadQuizInfo();
 // loadQuizQuestions();
-loadQuizLvls();
+// loadQuizLvls();
 // loadQuizFinished();
 
 //Testes
