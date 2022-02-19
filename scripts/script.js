@@ -240,6 +240,7 @@ let body = {
     questions: [],
     levels: []
 }
+let bodyCopy;
 
 function loadQuizInfo() {
     const conteudo = document.querySelector(".criacao-quiz");
@@ -551,6 +552,7 @@ function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
 
             if(i+1 == qtdNiveis) {
                 console.log(body);
+                bodyCopy = body;
                 loadQuizFinished();
             }
         }
@@ -617,38 +619,3 @@ function randomize() {
     //função para misturar respostas
     return Math.round(Math.random()) - 0.5;
 }
-
-
-
-// let quizData { formato que vou usar para enviar o quiz pro servidor 
-// 	title: "",
-// 	image: "",
-// 	questions: [
-// 		{
-// 			title: "",
-// 			color: "",
-// 			answers: [
-// 				{
-// 					text: "",
-// 					image: "",
-// 					isCorrectAnswer: true
-// 				},
-// 				{
-// 					text: "",
-// 					image: "",
-// 					isCorrectAnswer: false
-// 				}
-// 			]
-// 		},
-
-// 	],
-// 	levels: [
-// 		{
-// 			title: "",
-// 			image: "",
-// 			text: "",
-// 			minValue: 0
-// 		},
-		
-// 	]
-// }
