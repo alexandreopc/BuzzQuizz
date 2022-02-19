@@ -573,6 +573,7 @@ function loadQuizFinished() { //FALTA COLOCAR O LINK DO QUIZ PRONTO
 function returnHomePage() { //COMPLETAR CHAMANDO FUNCAO DE INICIALIZACAO DO SITE
     const conteudo = document.querySelector(".criacao-quiz");
     conteudo.innerHTML = ``;
+    getQuizzes();
 }
 
 function validateUrl(value) {
