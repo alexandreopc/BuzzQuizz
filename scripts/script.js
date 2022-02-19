@@ -521,7 +521,7 @@ function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
             document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.descricao-nivel`).value = "";
             alert("Preecha os dados corretamente");
-        }else if(acertoInput < 1 || acertoInput > 99) {
+        }else if(acertoInput < 0 || acertoInput > 99) {
             document.querySelector(`.criacao-quiz__nivel${i+1} input.titulo-nivel`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.acerto`).value = "";
             document.querySelector(`.criacao-quiz__nivel${i+1} input.url-nivel`).value = "";
@@ -602,7 +602,7 @@ function saveQuizzLocalStorage(res) {
 
     localStorage.setItem("quizzes", JSON.stringify(localData));
 
-    createQuizzSuccess(quizz.id);
+    // createQuizzSuccess(quizz.id);
 }
 
 //mais testes!
