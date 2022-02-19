@@ -553,6 +553,7 @@ function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
             if(i+1 == qtdNiveis) {
                 console.log(body);
                 bodyCopy = body;
+                saveQuizz();
                 loadQuizFinished();
             }
         }
