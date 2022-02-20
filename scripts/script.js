@@ -5,7 +5,6 @@ let serverQuizz = undefined;
 let quizzes;
 let database;
 
-//ocultaTodos();
 getQuizzes(); 
 
 //============== TELA 01 ==============//
@@ -13,7 +12,8 @@ getQuizzes();
 let USER_QUIZZES_IDS = [];
 
 function getQuizzes() {
-    clearHTML();
+    ocultaTodos();
+    removeOculto(".lista-quiz");
     const promise = axios.get(`${URL_API}/quizzes`);
     promise.then(listQuizzes);
 }
@@ -151,6 +151,8 @@ function onSelectedAnswer(element) {
     quizResult();
 }
 function loadQuiz(response) {
+    ocultaTodos();
+    removeOculto(".lista-quiz");
     result = 0;
     counter = 0;
     levels = 0;
@@ -245,6 +247,8 @@ let body = {
 let bodyCopy;
 
 function loadQuizInfo() {
+    ocultaTodos();
+    removeOculto(".criacao-quiz");
     const conteudo = document.querySelector(".criacao-quiz");
     conteudo.innerHTML = `
     <div class="criacao-quiz__infos">
@@ -521,7 +525,6 @@ function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
         
         if(acertoInput == 0){
             aux ++;
-            console.log("aux++")
         }
 
         if(tituloNivelInput.length < 10) {
@@ -581,27 +584,35 @@ function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
                 console.log(body);
                 bodyCopy = body;
                 saveQuizz();
+                getQuizzes(); 
                 loadQuizFinished();
             }
         }
     }
 }
 
-function loadQuizFinished() { //FALTA COLOCAR O LINK DO QUIZ PRONTO
+function loadQuizFinished(id) { //FALTA COLOCAR O LINK DO QUIZ PRONTO
+    ocultaTodos();
+    removeOculto(".criacao-quiz");
     const conteudo = document.querySelector(".criacao-quiz");
     conteudo.innerHTML =  `
     <div class="criacao-quiz__sucesso">
         <div><span>Comece pelo começo</span></div>
-            <button onclick="">Acessar Quizz</button>
-            <button onclick="returnHomePage()" class="home"">Voltar pra home</button>
+        <div class="quizz" onclick="loadQuiz(this)">
+          <img src="${body.image}">
+          <div class="overlay"></div>
+          <div class="title">${body.title}</div>
+          <span class="oculto">${id}</span>
         </div>
-    `;
+        <button onclick="loadQuiz("<span class="oculto">${id}</span>")">Acessar Quizz</button>
+        <button onclick="returnHomePage()" class="home"">Voltar pra home</button>
+    </div>`;
 }
 
 function returnHomePage() { //COMPLETAR CHAMANDO FUNCAO DE INICIALIZACAO DO SITE
     const conteudo = document.querySelector(".criacao-quiz");
     conteudo.innerHTML = ``;
-    clearHTML();
+    
     getQuizzes();
 }
 
@@ -650,9 +661,27 @@ function saveQuizzLocalStorage(res) {
 
     localStorage.setItem("quizzes", JSON.stringify(localData));
 
-    //createQuizzSuccess(quizz.id); //aqui????
+    // createQuizzSuccess(quizz.id); //aqui????
+    loadQuizFinished(quizz.key);
 }
 
+// function createQuizzSuccess(id) {
+//     APP.innerHTML = `
+//       <div class="page-create-quizz">
+//         <div class="title">Seu quizz está pronto!</div>
+   
+//         <div class="quizz" onclick="loadQuiz(this)">
+//           <img src="${CREATED_QUIZZ.image}">
+//           <div class="overlay"></div>
+//           <div class="title">${CREATED_QUIZZ.title}</div>
+//           <span class="hidden">${id}</span>
+//         </div>
+   
+//         <button class="access-quizz" onclick="loadQuiz("<span ${id}</span>")">Acessar Quizz</button>
+//         <button class="go-back" onclick="getQuizzes()">Voltar pra home</button>
+//       </div>  
+//     `;
+//   }
 
 //mais testes!
 function getQuizzesLocalStorage() {
