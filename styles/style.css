@@ -642,3 +642,18 @@ button.home {
     }
 
 }
+
+
+
+.page-create-quizz .access-quizz,
+.page-create-quizz .go-back {
+  width: 220px;
+  margin: 0 auto;
+}
+
+.page-create-quizz button.access-quizz {
+  margin-top: 20px;
+  background-color: #ec362d;
+  color: #ffffff;
+  border: none;
+}

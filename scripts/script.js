@@ -591,7 +591,7 @@ function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
     }
 }
 
-function loadQuizFinished(id) { //FALTA COLOCAR O LINK DO QUIZ PRONTO
+ffunction loadQuizFinished(id) { //FALTA COLOCAR O LINK DO QUIZ PRONTO
     ocultaTodos();
     removeOculto(".criacao-quiz");
     const conteudo = document.querySelector(".criacao-quiz");
@@ -599,12 +599,12 @@ function loadQuizFinished(id) { //FALTA COLOCAR O LINK DO QUIZ PRONTO
     <div class="criacao-quiz__sucesso">
         <div><span>Comece pelo começo</span></div>
         <div class="quizz" onclick="loadQuiz(this)">
-          <img src="${body.image}">
-          <div class="overlay"></div>
-          <div class="title">${body.title}</div>
-          <span class="oculto">${id}</span>
+            <img src="${body.image}">
+            <div class="overlay"></div>
+            <div class="hidden">${body.title}</div>
+            <span class="oculto">${id}</span>
         </div>
-        <button onclick="loadQuiz("<span class="oculto">${id}</span>")">Acessar Quizz</button>
+        <button onclick="loadQuiz(id)">Acessar Quizz</button>
         <button onclick="returnHomePage()" class="home"">Voltar pra home</button>
     </div>`;
 }
