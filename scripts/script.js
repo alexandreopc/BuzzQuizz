@@ -598,7 +598,7 @@ function loadQuizFinished(id) { //FALTA COLOCAR O LINK DO QUIZ PRONTO
     conteudo.innerHTML =  `
     <div class="criacao-quiz__sucesso">
         <div><span>Comece pelo começo</span></div>
-        <div class="quizz" onclick="loadQuiz(this)">
+        <div class="server-quizz-final" onclick="loadQuiz(this)">
           <img src="${body.image}">
           <div class="overlay"></div>
           <div class="title">${body.title}</div>
