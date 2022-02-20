@@ -591,7 +591,7 @@ function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
     }
 }
 
-ffunction loadQuizFinished(id) { //FALTA COLOCAR O LINK DO QUIZ PRONTO
+function loadQuizFinished(id) { //FALTA COLOCAR O LINK DO QUIZ PRONTO
     ocultaTodos();
     removeOculto(".criacao-quiz");
     const conteudo = document.querySelector(".criacao-quiz");
