@@ -604,7 +604,7 @@ function loadQuizFinished(id) { //FALTA COLOCAR O LINK DO QUIZ PRONTO
           <div class="title">${body.title}</div>
           <span class="oculto">${id}</span>
         </div>
-        <button onclick="loadQuiz("<span class="oculto">${id}</span>")">Acessar Quizz</button>
+        <button onclick="loadQuiz(id)">Acessar Quizz</button>
         <button onclick="returnHomePage()" class="home"">Voltar pra home</button>
     </div>`;
 }
