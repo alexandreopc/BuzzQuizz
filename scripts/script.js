@@ -31,7 +31,7 @@ APP.innerHTML = `
         <p class="quizz-not-created">Você não criou nenhum quizz ainda :(</p>
         <button class="create-quizz-btn" data-identifier="create-quizz" onclick="loadQuizInfo()">Criar Quizz</button>
     </div>
-    <div class="general-quizzes" data-identifier="general-quizzes">
+    <div class="general-quizzes" data-identifier="general-quizzes" data-identifier="quizz-card">
         <p class="all-quizzes-title">Todos os Quizzes</>
         <div class="general-quizzes-list"></div>
     </div>
@@ -41,7 +41,7 @@ APP.innerHTML = `
     const yourQuizzesElement = document.querySelector(".your-quizzes");
 
     yourQuizzesElement.innerHTML = `
-    <div class="your-quizzes">
+    <div class="your-quizzes" data-identifier="quizz-card">
         <div class="your-quizzes-header">
         <p class="">Seus Quizzes</p>
         <ion-icon name="add-circle" class="add-quizz-btn" onclick="loadQuizInfo()"></ion-icon>
@@ -62,7 +62,7 @@ APP.innerHTML = `
     } else {
 
     yourQuizzesList.innerHTML += `
-        <div class="your-quizz" onclick="loadQuiz(this)">
+        <div class="your-quizz" data-identifier="user-quizzes" data-identifier="quizz-card" onclick="loadQuiz(this)">
             <img src='${yourQuizz.image}'/>
             <div class="gradient"></div>
             <p class="quizz-title">${yourQuizz.title} </p>
