@@ -307,7 +307,7 @@ function loadQuizQuestions() {
     let codigoHTML1 = `
     <div class="criacao-quiz__perguntas">
         <span>Crie suas perguntas</span>
-        <div class="criacao-quiz__pergunta1">
+        <div class="criacao-quiz__pergunta1" data-identifier="question">
             <form>
                 <div>
                     <label >Pergunta 1</label>
@@ -343,7 +343,7 @@ function loadQuizQuestions() {
     
     for(let i = 1; i < qtdPerguntas; i++) {
         conteudo2.innerHTML += `
-            <div class="criacao-quiz__pergunta${i+1}">
+            <div class="criacao-quiz__pergunta${i+1}" data-identifier="question">
                 <form>
                     <div>
                         <label >Pergunta ${i+1}</label>
@@ -480,7 +480,7 @@ function loadQuizLvls() {
     let codigoHTML1 = `
     <div class="criacao-quiz__niveis">
         <span>Agora, decida os níveis!</span>
-        <div class="criacao-quiz__nivel1">
+        <div class="criacao-quiz__nivel1" data-identifier="level">
             <form>
                 <div>
                     <label >Nível 1</label>
@@ -499,7 +499,7 @@ function loadQuizLvls() {
     
     for(let i = 1; i < qtdNiveis; i++) {
         conteudo2.innerHTML += `
-        <div class="criacao-quiz__nivel${i+1}">
+        <div class="criacao-quiz__nivel${i+1}" data-identifier="level">
             <form>
                 <div>
                     <label >Nível ${i+1}</label>
@@ -600,8 +600,8 @@ function loadQuizFinished(id) { //FALTA COLOCAR O LINK DO QUIZ PRONTO
         <div><span>Comece pelo começo</span></div>
         <div class="server-quizz-final" onclick="loadQuiz(this)">
           <img src="${body.image}">
-          <div class="overlay"></div>
-          <div class="title">${body.title}</div>
+          <div class="gradient"></div>
+          <div class="title"><p>${body.title}</p></div>
           <span class="oculto">${id}</span>
         </div>
         <button onclick="loadQuiz(id)">Acessar Quizz</button>
@@ -664,24 +664,6 @@ function saveQuizzLocalStorage(res) {
     // createQuizzSuccess(quizz.id); //aqui????
     loadQuizFinished(quizz.key);
 }
-
-// function createQuizzSuccess(id) {
-//     APP.innerHTML = `
-//       <div class="page-create-quizz">
-//         <div class="title">Seu quizz está pronto!</div>
-   
-//         <div class="quizz" onclick="loadQuiz(this)">
-//           <img src="${CREATED_QUIZZ.image}">
-//           <div class="overlay"></div>
-//           <div class="title">${CREATED_QUIZZ.title}</div>
-//           <span class="hidden">${id}</span>
-//         </div>
-   
-//         <button class="access-quizz" onclick="loadQuiz("<span ${id}</span>")">Acessar Quizz</button>
-//         <button class="go-back" onclick="getQuizzes()">Voltar pra home</button>
-//       </div>  
-//     `;
-//   }
 
 //mais testes!
 function getQuizzesLocalStorage() {
