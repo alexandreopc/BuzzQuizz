@@ -182,6 +182,36 @@ p.quizz-not-created {
     border-radius: 5px;
 }
 
+.server-quizz-final {
+    display: flex;
+    margin: 0 auto;
+    position: relative;
+    width: 340px;
+    height: 181px;
+    margin-top: 29px;
+    border-radius: 5px;
+}
+.server-quizz-final img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+.server-quizz-final .title {
+    bottom: 15px;
+    left: 0;
+    
+}
+.server-quizz-final p {
+    display: flex;
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    color: #FFF;
+    font-size: 19px;
+    margin: 0 19px;
+    word-break: break-word;
+}
+
 .server-quizz img {
     width: 100%;
     height: 100%;
@@ -501,6 +531,12 @@ div .answer.selected {
     display: flex;
     flex-direction: column;
     text-align:center;
+}
+
+.criacao-quiz__sucesso{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
 }
 
 span {
