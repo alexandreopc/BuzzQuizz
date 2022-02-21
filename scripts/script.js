@@ -234,7 +234,7 @@ function quizResult() {
 
 //============== TELA 03 ==============//
 
-let titulo= ""; //mover para dentro de loadQuizQuestions()
+let titulo= ""; 
 let url= "";
 let qtdPerguntas= 0;
 let qtdNiveis= 0;
@@ -339,7 +339,6 @@ function loadQuizQuestions() {
 
     conteudo.innerHTML = codigoHTML1;
     const conteudo2 = document.querySelector(".criacao-quiz__perguntas");
-    // qtdPerguntas = 3; //tirar isso dps
     
     for(let i = 1; i < qtdPerguntas; i++) {
         conteudo2.innerHTML += `
@@ -495,7 +494,6 @@ function loadQuizLvls() {
     
     conteudo.innerHTML = codigoHTML1;
     const conteudo2 = document.querySelector(".criacao-quiz__niveis");
-    qtdNiveis = 2; //tirar isso dps
     
     for(let i = 1; i < qtdNiveis; i++) {
         conteudo2.innerHTML += `
@@ -514,7 +512,7 @@ function loadQuizLvls() {
     conteudo2.innerHTML += `
     <button onclick="validateQuizLvls()">Prosseguir pra criar níveis</button>`;
 }
-function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
+function validateQuizLvls() {
     let aux = 0;
     let erros = 0;
     for(let i = 0; i < qtdNiveis; i++){
@@ -591,13 +589,13 @@ function validateQuizLvls() {//FALTA VALIDAR %DE ACERTO
     }
 }
 
-function loadQuizFinished(id) { //FALTA COLOCAR O LINK DO QUIZ PRONTO
+function loadQuizFinished(id) { 
     ocultaTodos();
     removeOculto(".criacao-quiz");
     const conteudo = document.querySelector(".criacao-quiz");
     conteudo.innerHTML =  `
     <div class="criacao-quiz__sucesso">
-        <div><span>Comece pelo começo</span></div>
+        <div><span>Seu quizz está pronto!</span></div>
         <div class="server-quizz-final" onclick="loadQuiz(this)">
           <img src="${body.image}">
           <div class="gradient"></div>
@@ -609,7 +607,7 @@ function loadQuizFinished(id) { //FALTA COLOCAR O LINK DO QUIZ PRONTO
     </div>`;
 }
 
-function returnHomePage() { //COMPLETAR CHAMANDO FUNCAO DE INICIALIZACAO DO SITE
+function returnHomePage() { 
     const conteudo = document.querySelector(".criacao-quiz");
     conteudo.innerHTML = ``;
     
@@ -643,12 +641,6 @@ function validateHex(value) {
     return /^#([A-Fa-f0-9]{6})$/i.test(value);
 }
 
-// loadQuizInfo();
-// loadQuizQuestions();
-// loadQuizLvls();
-// loadQuizFinished();
-
-//Testes
 function saveQuizzLocalStorage(res) {
     const quizz = res.data;
     const localData = getQuizzesLocalStorage();
@@ -661,11 +653,10 @@ function saveQuizzLocalStorage(res) {
 
     localStorage.setItem("quizzes", JSON.stringify(localData));
 
-    // createQuizzSuccess(quizz.id); //aqui????
+    // createQuizzSuccess(quizz.id); 
     loadQuizFinished(quizz.key);
 }
 
-//mais testes!
 function getQuizzesLocalStorage() {
     let data = localStorage.getItem("quizzes");
 
